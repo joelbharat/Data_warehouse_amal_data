@@ -1,0 +1,18 @@
+import csv
+from pymongo import MongoClient
+
+mongoClient = MongoClient() 
+db = mongoClient.amal_data
+#db.population_2022.drop()
+
+header = [ "category_id", "category_name", "description", "picture" ]
+csvfile = open('C:/Users/joelb/Waycool/Data Warehouse/Amal_data/categories.csv', 'r')
+reader = csv.DictReader( csvfile )
+
+for each in reader:
+    row={}
+    for field in header:
+        row[field]=each[field]
+        
+    print (row)
+    db.categories.insert(row)
